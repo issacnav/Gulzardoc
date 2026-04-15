@@ -204,7 +204,7 @@ lines.append('</script>')
 
 lines.append("</body></html>")
 
-out = BASE / "storyboard.html"
+out = BASE / "index.html"
 out.write_text("\n".join(lines), encoding="utf-8")
 print(f"\nstoryboard.html regenerated -> {out}")
 print(f"  {len(lines)} HTML lines written")
