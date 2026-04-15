@@ -44,39 +44,79 @@ print(f"scenes still empty: {zero}")
 
 # ── 2. REGENERATE STORYBOARD HTML ─────────────────────────────────────────────
 CSS = (
-    # Olive Leaf:#606c38  Black Forest:#283618  Cornsilk:#fefae0  Light Caramel:#dda15e  Copper:#bc6c25
-    "body{font-family:system-ui,sans-serif;max-width:1400px;margin:0 auto;"
-    "padding:1.5rem;background:#283618;color:#fefae0}"
-    "h1{font-size:1.8rem;color:#dda15e}"
-    "p.sub{color:#a0a87a;font-size:.85rem;margin-bottom:2rem}"
-    ".scene{display:grid;grid-template-columns:300px 1fr;gap:1.5rem;"
-    "margin-bottom:1.5rem;border:1px solid #606c38;border-radius:10px;"
-    "padding:1.25rem;background:#1e2a10;box-shadow:0 4px 6px rgba(0,0,0,0.4)}"
-    ".num{font-size:2rem;font-weight:700;color:#dda15e}"
-    ".lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#a0a87a;margin:.25rem 0 .6rem}"
-    ".txt{font-size:.88rem;line-height:1.7;color:#e8dfc0;border-left:3px solid #bc6c25;"
-    "padding-left:.75rem;margin-bottom:.5rem;font-family:serif}"
-    ".q{font-size:.68rem;color:#7a8a50;margin-top:.4rem}"
-    ".imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;align-items:start}"
-    ".card{border-radius:6px;overflow:hidden;background:#2d3d18;position:relative;border:1px solid #606c38;box-shadow:0 2px 4px rgba(0,0,0,0.3)}"
-    ".card img{width:100%;height:150px;object-fit:cover;object-position:top center;display:block;cursor:pointer;transition:opacity 0.3s;}"
-    ".card img:hover{opacity:0.82;}"
-    ".card p{font-size:11px;padding:6px 8px;margin:0;color:#c8b890;"
-    "white-space:nowrap;overflow:hidden;text-overflow:ellipsis}"
-    ".badge{position:absolute;top:5px;right:5px;background:#bc6c25;color:#fefae0;"
-    "font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px}"
-    ".empty{color:#7a8a50;font-size:.8rem;font-style:italic;padding:.5rem 0}"
-    ".stats{background:#1e2a10;border-radius:8px;padding:1rem;margin-bottom:1.5rem;"
-    "display:flex;gap:2rem;flex-wrap:wrap;border:1px solid #606c38}"
-    ".stat{text-align:center} .stat .n{font-size:1.8rem;font-weight:700;color:#dda15e}"
-    ".stat .l{font-size:.75rem;color:#a0a87a}"
-    "@media(max-width:768px){.scene{grid-template-columns:1fr;gap:1rem;}body{padding:1rem;}}"
+    # Dark charcoal base + dm-elevation-3 shadow system
+    "--elev3:inset 0 1px 0 0 rgba(255,255,255,0.05),inset 0 0 0 1px rgba(255,255,255,0.02),"
+    "0 0 0 1px rgba(0,0,0,0.12),0 1px 1px -0.5px rgba(0,0,0,0.18),0 3px 3px -1.5px rgba(0,0,0,0.18);"
+    # — embed the var in :root so we can reference it throughout
+    "*{box-sizing:border-box}"
+    ":root{--elev3:inset 0 1px 0 0 rgba(255,255,255,0.05),inset 0 0 0 1px rgba(255,255,255,0.02),"
+    "0 0 0 1px rgba(0,0,0,0.12),0 1px 1px -0.5px rgba(0,0,0,0.18),0 3px 3px -1.5px rgba(0,0,0,0.18)}"
+    "body{font-family:'Geist',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;"
+    "max-width:1400px;margin:0 auto;padding:2rem 1.5rem;background:#161616;color:#fff}"
+    "h1{font-size:2rem;font-weight:800;letter-spacing:-0.03em;color:#fff;margin-bottom:.25rem}"
+    "p.sub{color:rgba(235,235,245,.45);font-size:.82rem;margin-bottom:2rem;font-weight:400}"
+
+    ".stats{background:#1e1e1e;border-radius:18px;padding:1.25rem 1.5rem;margin-bottom:1.75rem;"
+    "display:flex;gap:2.5rem;flex-wrap:wrap;"
+    "box-shadow:var(--elev3)}"
+    ".stat{text-align:center}"
+    ".stat .n{font-size:2rem;font-weight:800;color:#fff;letter-spacing:-0.03em;display:block}"
+    ".stat .l{font-size:.7rem;color:rgba(235,235,245,.4);text-transform:uppercase;letter-spacing:.06em}"
+
+    ".scene{display:grid;grid-template-columns:280px 1fr;gap:1.25rem;"
+    "margin-bottom:.875rem;border-radius:20px;"
+    "padding:1.25rem;background:#1e1e1e;"
+    "box-shadow:var(--elev3);transition:background .2s}"
+    ".scene:hover{background:#222}"
+
+    ".num{font-size:2.2rem;font-weight:900;color:#fff;letter-spacing:-0.04em;line-height:1}"
+    ".lbl{font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;"
+    "color:rgba(235,235,245,.3);margin:.3rem 0 .7rem;font-weight:500}"
+    ".txt{font-size:.86rem;line-height:1.75;color:rgba(235,235,245,.75);"
+    "border-left:2px solid #0a84ff;padding-left:.75rem;margin-bottom:.5rem}"
+    ".q{font-size:.65rem;color:rgba(235,235,245,.22);margin-top:.5rem}"
+
+    ".imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;align-items:start}"
+    ".card{border-radius:14px;overflow:hidden;background:#252525;position:relative;"
+    "box-shadow:var(--elev3)}"
+    ".card img{width:100%;height:148px;object-fit:cover;object-position:top center;display:block;"
+    "cursor:pointer;transition:transform .3s ease,opacity .3s}"
+    ".card img:hover{transform:scale(1.04);opacity:.88}"
+    ".card p{font-size:10px;padding:5px 8px;margin:0;color:rgba(235,235,245,.35);"
+    "white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#252525}"
+
+    ".badge{position:absolute;top:7px;right:7px;background:#0a84ff;color:#fff;"
+    "font-size:8px;font-weight:700;padding:2px 7px;border-radius:20px;letter-spacing:.04em}"
+    ".empty{color:rgba(235,235,245,.22);font-size:.78rem;font-style:italic;padding:.5rem 0}"
+
+    "@media(max-width:768px){"
+    "body{padding:.75rem}"
+    "h1{font-size:1.4rem}"
+    ".stats{gap:1rem;padding:.875rem;border-radius:14px;justify-content:space-between}"
+    ".stat .n{font-size:1.5rem}"
+    ".stat .l{font-size:.6rem}"
+    ".scene{grid-template-columns:1fr;gap:.75rem;padding:1rem;border-radius:16px}"
+    ".num{font-size:1.6rem}"
+    ".txt{font-size:.82rem}"
+    ".imgs{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}"
+    ".card img{height:120px}}"
+    "@media(max-width:420px){"
+    ".stats{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}"
+    ".imgs{grid-template-columns:1fr 1fr}}"
+
     ".modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;"
-    "background-color:rgba(28,42,8,0.95);align-items:center;justify-content:center;flex-direction:column;}"
-    ".modal img{max-width:95%;max-height:85vh;object-fit:contain;border-radius:8px;box-shadow:0 5px 15px rgba(0,0,0,0.6);}"
-    ".modal p{color:#dda15e;margin-top:1rem;font-size:1.1rem;text-align:center;max-width:90%;font-family:serif;}"
-    ".close{position:absolute;top:15px;right:25px;color:#fefae0;font-size:35px;font-weight:bold;cursor:pointer;transition:0.3s;}"
-    ".close:hover,.close:focus{color:#bc6c25;text-decoration:none;cursor:pointer;}"
+    "background:rgba(18,18,18,.88);backdrop-filter:blur(32px);-webkit-backdrop-filter:blur(32px);"
+    "align-items:center;justify-content:center;flex-direction:column}"
+    ".modal img{max-width:92%;max-height:82vh;object-fit:contain;border-radius:18px;"
+    "box-shadow:var(--elev3)}"
+    ".modal p{color:rgba(235,235,245,.65);margin-top:1rem;font-size:.9rem;"
+    "text-align:center;max-width:80%;font-weight:400}"
+    ".close{position:absolute;top:20px;right:20px;width:36px;height:36px;"
+    "background:rgba(255,255,255,.1);border-radius:50%;display:flex;"
+    "align-items:center;justify-content:center;cursor:pointer;transition:.2s;"
+    "color:rgba(255,255,255,.7);font-size:18px;font-weight:300;line-height:1;border:none;"
+    "box-shadow:var(--elev3)}"
+    ".close:hover{background:rgba(255,255,255,.18);color:#fff}"
 )
 
 total_img   = sum(len(s["images"]) for s in data)
@@ -88,6 +128,9 @@ lines = [
     '<meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
     '<title>Gulzar Documentary — Visual Storyboard</title>',
+    '<link rel="preconnect" href="https://fonts.googleapis.com">',
+    '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
+    '<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">',
     f'<style>{CSS}</style></head><body>',
     '<h1>Gulzar Documentary — Visual Storyboard</h1>',
     '<p class="sub">All 70 scenes matched to the Marathi transcript. '
